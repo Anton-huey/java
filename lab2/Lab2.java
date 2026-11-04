@@ -139,36 +139,7 @@ class LinkedList {
         }
     }
 
-    // Safer version of addFirst, prevents user from putting in an already existing node
-    // New methods had to be private but isn't used in order to follow instructions, this is an edge case
-    private void addFirst_v2(int value) {
-        Node node = new Node(value);
-
-        if (head == null && tail == null) {
-            head = node;
-            tail = node;
-        }
-        else {
-            node.next = head;
-            head = node;
-        }
-    }
-
     void addLast(Node node) {
-        if (head == null && tail == null) {
-            head = node;
-            tail = node;
-        }
-        else {
-            tail.next = node;
-            tail = node;
-        }
-    }
-
-    //Same safer version of addLast with same logic as addFirst_v2
-    private void addLast_v2(int value) {
-        Node node = new Node(value);
-        
         if (head == null && tail == null) {
             head = node;
             tail = node;
