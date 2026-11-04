@@ -4,10 +4,10 @@ class Person {
     
     private boolean isSick;
     private boolean isDead;
-    private static final double IS_SICK_PROB = 0.02;
+    private static final double IS_SICK_PROB = 0.001;
     private static final double GET_WELL_PROB = 0.6;
-    private static final double DIE_PROB = 0.3;
-    private static final double INFECT_PROB = 0;
+    private static final double DIE_PROB = 0.001;
+    private static final double INFECT_PROB = 0.01;
 
     Person() {
         isSick = Math.random() <= IS_SICK_PROB;

@@ -1,6 +1,6 @@
 package lab3;
 
-public class Lab3 {
+public class Simulation {
     public static void main(String[] args) {
 
         Village village = new Village();
