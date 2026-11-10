@@ -3,13 +3,13 @@ package lab3;
 class Village {
     
     private static final int SIZE = 1000;
-    private Person[] allPersons;
+    private final Person[] population;
 
     Village() {
-        allPersons = new Person[SIZE];
+        population = new Person[SIZE];
 
         for (int i = 0; i < SIZE; i++) {
-            allPersons[i] = new Person();
+            population[i] = new Person();
         }
     }
 
@@ -20,7 +20,7 @@ class Village {
     public int countSick() {
         int sickCount = 0;
 
-        for (Person p : allPersons) {
+        for (Person p : population) {
             if (p.isSick()) {
                 sickCount++;
             }
@@ -35,7 +35,7 @@ class Village {
     public int countDead() {
         int deadCount = 0;
 
-        for (Person person : allPersons) {
+        for (Person person : population) {
             if (person.isDead()) {
                 deadCount++;
             }
@@ -44,8 +44,8 @@ class Village {
     }
 
     public void dayPassesAll() {
-        for (Person person : allPersons) {
-            person.dayPasses(allPersons);
+        for (Person person : population) {
+            person.dayPasses(population);
         }
     }
 
