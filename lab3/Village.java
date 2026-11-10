@@ -13,11 +13,11 @@ class Village {
         }
     }
 
-    int villageSize() {
+    public int villageSize() {
         return SIZE;
     }
 
-    int countSick() {
+    public int countSick() {
         int sickCount = 0;
 
         for (Person p : allPersons) {
@@ -28,11 +28,11 @@ class Village {
         return sickCount;
     }
 
-    double sickProp() {
+    public double sickProp() {
         return (double) countSick()/ (double) SIZE;
     }
 
-    int countDead() {
+    public int countDead() {
         int deadCount = 0;
 
         for (Person person : allPersons) {
@@ -43,7 +43,7 @@ class Village {
         return deadCount;
     }
 
-    void dayPassesAll() {
+    public void dayPassesAll() {
         for (Person person : allPersons) {
             person.dayPasses(allPersons);
         }
