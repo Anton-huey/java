@@ -6,7 +6,6 @@ import java.util.Random;
 class Person {
     private boolean isSick;
     private boolean isDead;
-    private static final double IS_SICK_PROB = 0.001;
     private static final double GET_WELL_PROB = 0.2;
     private static final double DIE_PROB = 0.002;
     private static final double INFECT_PROB = 0.02;
@@ -26,12 +25,12 @@ class Person {
     private static final Random random = new Random();
 
     Person() {
-        isDead=false;
+        isDead = false;
         xPos = random.nextDouble() * AREA_SIZE;
         yPos = random.nextDouble() * AREA_SIZE;
         isSick = inCluster();
-        daysLeftImmune=0;
-        range=(random.nextDouble()<DISTANCING)?RANGE/2:RANGE;
+        daysLeftImmune = 0;
+        range = (random.nextDouble() < DISTANCING) ? RANGE / 2:RANGE;
     }
 
     public boolean isSick() {
@@ -49,7 +48,7 @@ class Person {
     }
 
     private boolean inCluster(){
-        return xPos>=CLUSTER_MIN && xPos<=CLUSTER_MAX&&yPos>=CLUSTER_MIN && yPos<=CLUSTER_MAX;
+        return xPos >= CLUSTER_MIN && xPos <= CLUSTER_MAX && yPos >= CLUSTER_MIN && yPos <= CLUSTER_MAX;
     }
 
     private void infect(Person victim) {
@@ -81,8 +80,4 @@ class Person {
             daysLeftImmune=DAYS_IMMUNE;
         }
     }
-    
-
-
-
 }

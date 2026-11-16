@@ -50,7 +50,7 @@ class Village {
     }
 
     public double sickProp() {
-        return (double) countSick()/ (double) SIZE;
+        return (double) countSick() / (double) SIZE;
     }
 
     public void dayPassesAll() {
