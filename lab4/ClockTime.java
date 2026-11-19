@@ -39,7 +39,7 @@ public class ClockTime {
     /** The hour hand moves gradually, so 10:30 lies halfway between 10 and 11. */
     public double getHourAngle() {
         double hours = hour + minute / (double) MINUTES_PER_HOUR;
-        return FULL_CIRCLE * hours / HOURS_ON_DIAL;
+        return (FULL_CIRCLE * hours / HOURS_ON_DIAL);
     }
 
     public double getMinuteAngle() {
@@ -48,7 +48,7 @@ public class ClockTime {
     }
 
     public double getSecondAngle() {
-        return FULL_CIRCLE * second / SECONDS_PER_MINUTE;
+        return (FULL_CIRCLE * second / SECONDS_PER_MINUTE);
     }
 
 }

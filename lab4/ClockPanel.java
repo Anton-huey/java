@@ -2,29 +2,32 @@ package lab4;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Path2D;
 
 public class ClockPanel extends JPanel {
-    private static final int WIDTH = 400;
-    private static final int HEIGHT = 400;
+    private static final int WIDTH = 800;
+    private static final int HEIGHT = 800;
     private static final int CENTER_X = WIDTH / 2;
     private static final int CENTER_Y = HEIGHT / 2;
-    private static final int FACE_RADIUS = 180;
+    private static final int FACE_RADIUS = 300;
 
     private static final int TICK_COUNT=12;
-    private static final int TICK_LENGTH = 10;
+    private static final int TICK_LENGTH = 20;
     private static final float TICK_WIDTH = 4f;
     private static final float FACE_BORDER_WIDTH = 6f;
-    private static final int NUMBER_RADIUS = 140;
-    private static final int NUMBER_FONT_SIZE = 22;
+    private static final int NUMBER_RADIUS = 250;
+    private static final int NUMBER_FONT_SIZE = 25;
 
     // Hands
-    private static final int HOUR_LENGTH = 90;
-    private static final float HOUR_WIDTH = 8f;
-    private static final int MINUTE_LENGTH = 130;
-    private static final float MINUTE_WIDTH = 5f;
-    private static final int SECOND_LENGTH = 155;
-    private static final float SECOND_WIDTH = 2f;
-    private static final int HUB_RADIUS = 8;
+    private static final int HOUR_LENGTH = 100;
+    private static final float HOUR_WIDTH = 8f*2;
+    private static final int MINUTE_LENGTH = 200;
+    private static final float MINUTE_WIDTH = 5f*2;
+    private static final int SECOND_LENGTH = 240;
+    private static final float SECOND_WIDTH = 2f*2;
+    private static final int HUB_RADIUS = 16;
+
+    private static final double QUARTER_CIRCLE = Math.PI / 2;
 
     private static final int DATE_Y = 450;
     private static final int DATE_FONT_SIZE = 20;
@@ -58,15 +61,17 @@ public class ClockPanel extends JPanel {
         ClockTime time = new ClockTime();
         drawFace(g2d);
         drawDial(g2d);
+        drawNumbers(g2d);
         drawHand(g2d,HOUR_LENGTH,HOUR_WIDTH,time.getHourAngle(),HOUR_COLOR);
         drawHand(g2d,MINUTE_LENGTH,MINUTE_WIDTH,time.getMinuteAngle(),MINUTE_COLOR);
         drawHand(g2d,SECOND_LENGTH,SECOND_WIDTH,time.getSecondAngle(),SECOND_COLOR);
+        drawHub(g2d);
 
     }
 
     private Point pointOnCircle(double radius, double angle){
         int x = CENTER_X+(int)Math.round(radius*Math.sin(angle));
-        int y = CENTER_Y+(int)Math.round(radius*Math.cos(angle));
+        int y = CENTER_Y-(int)Math.round(radius*Math.cos(angle));
         return new Point(x, y);
     }
 
@@ -101,9 +106,39 @@ public class ClockPanel extends JPanel {
 
     private void drawHand(Graphics2D g2,int length,float width,double angle,Color color){
         Point tip = pointOnCircle(length, angle);
+        Point baseleft = pointOnCircle(width/2,angle-QUARTER_CIRCLE);
         g2.setColor(color);
-        g2.setStroke(new BasicStroke(width));
-        g2.drawLine(CENTER_X,CENTER_Y,tip.x,tip.y);
+        Point baseright = pointOnCircle(width/2,angle+QUARTER_CIRCLE);
+
+        Path2D.Double triangle = new Path2D.Double();
+        triangle.moveTo(tip.x, tip.y);
+        triangle.lineTo(baseleft.x, baseleft.y);
+        triangle.lineTo(baseright.x, baseright.y);
+        triangle.closePath();
+
+        g2.setColor(color);
+        g2.fill(triangle);
+    }
+
+    private void drawHub(Graphics2D g2){
+        g2.setColor(Color.orange);
+        g2.fillOval(CENTER_X-HUB_RADIUS,CENTER_Y-HUB_RADIUS,2*HUB_RADIUS,2*HUB_RADIUS);
+    }
+
+    private void drawCenteredText(Graphics2D g2, String text, int x, int y) {
+        FontMetrics metrics = g2.getFontMetrics();
+        int textX = x - metrics.stringWidth(text) / 2;
+        int textY = y + (metrics.getAscent() - metrics.getDescent()) / 2;
+        g2.drawString(text, textX, textY);
+    }
+
+    private void drawNumbers(Graphics2D g2) {
+        g2.setFont(new Font(Font.SERIF, Font.BOLD, NUMBER_FONT_SIZE));
+        g2.setColor(BORDER_COLOR);
+        for (int number = 1; number <= TICK_COUNT; number++) {
+            Point p = pointOnCircle(NUMBER_RADIUS, FULL_CIRCLE * number / TICK_COUNT);
+            drawCenteredText(g2, String.valueOf(number), p.x, p.y);
+        }
     }
 
 }
