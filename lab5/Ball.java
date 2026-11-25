@@ -57,7 +57,7 @@ class Ball {
             aimPosition = null;
         }
     }
-    
+
     void move() {
          if (isMoving()) {                                   
             position.increase(velocity);      
@@ -100,7 +100,7 @@ class Ball {
         }
     }
 
-    void ballsCollided(Ball otherBall) {
+    void collidedWith(Ball otherBall) {
         if (ballCollision(otherBall)) {
 
             Coord normal = Coord.sub(position, otherBall.position).norm();

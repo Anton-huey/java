@@ -17,8 +17,7 @@ class Table extends JPanel implements MouseListener, MouseMotionListener, Action
     
     Table() {
         
-        setPreferredSize(new Dimension(TABLE_WIDTH + 2 * WALL_THICKNESS,
-                                       TABLE_HEIGHT + 2 * WALL_THICKNESS));
+        setPreferredSize(new Dimension(TABLE_WIDTH + 2 * WALL_THICKNESS, TABLE_HEIGHT + 2 * WALL_THICKNESS));
         createInitialBalls();
         
         addMouseListener(this);
@@ -39,7 +38,7 @@ class Table extends JPanel implements MouseListener, MouseMotionListener, Action
         ball2.move();
         ball1.wallCollision(WALL_THICKNESS, TABLE_HEIGHT, TABLE_WIDTH);
         ball2.wallCollision(WALL_THICKNESS, TABLE_HEIGHT, TABLE_WIDTH);
-        ball1.ballsCollided(ball2);    
+        ball1.collidedWith(ball2);    
         repaint();
         if (!ball1.isMoving() && !ball2.isMoving()) {
             simulationTimer.stop();
@@ -58,7 +57,7 @@ class Table extends JPanel implements MouseListener, MouseMotionListener, Action
         ball2.shoot();
         ball1.wallCollision(WALL_THICKNESS, TABLE_HEIGHT, TABLE_WIDTH);
         ball2.wallCollision(WALL_THICKNESS, TABLE_HEIGHT, TABLE_WIDTH);
-        ball1.ballsCollided(ball2);
+        ball1.collidedWith(ball2);
         if (!simulationTimer.isRunning()) {
             simulationTimer.start();      
         }
